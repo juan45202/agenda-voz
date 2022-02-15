@@ -1,43 +1,55 @@
-import { useState } from 'react'
-import logo from './logo.svg'
+import { useEffect, useState } from 'react'
+import Calendar from 'react-calendar';
+import ListadoTareas from './components/ListadoTareas';
+import FormularioTarea from './components/FormularioTarea';
+import Tarea from './components/Tarea';
+import 'react-calendar/dist/Calendar.css';
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [formularioTareas, mostrarFormularioTareas] = useState(false);
+  const [value, onChange] = useState(new Date());
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const fechaEspañol = value.toLocaleDateString('es-ES', options);
+  var utterance = new SpeechSynthesisUtterance();
+  // utterance.text = `Para el ${fechaEspañol} No tienes ninguna tarea proramada`;
+  utterance.voice = speechSynthesis.getVoices()[6];
+  
+  const [tareas, guardarTareas] = useState([]);
 
+  const cadenaReproducir = () => {
+    var cadena = `Para el ${fechaEspañol} tiene `
+    for (let i = 0; i < tareas.length; i++){
+      cadena += tareas[i].nombre + ' '
+    }
+    console.log(cadena)
+    return cadena
+  }
+  utterance.text = cadenaReproducir();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div>
+      <Calendar onChange={onChange} value={value} />
+      <h1>{fechaEspañol}</h1>
+
+
+
+      <button onClick={()=> {speechSynthesis.speak(utterance);}}>
+        reproducir
+      </button>
+
+      <button onClick={() => {mostrarFormularioTareas(true)}}>
+        Agregar tarea
+      </button>
+
+      { formularioTareas ? 
+        <FormularioTarea fechaEspañol={fechaEspañol} tareas={tareas} guardarTareas={guardarTareas} /> 
+        : null
+      }
+
+      <ListadoTareas tareas={tareas} />
+
+
     </div>
   )
 }
