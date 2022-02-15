@@ -7,11 +7,13 @@ import 'react-calendar/dist/Calendar.css';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
   const [formularioTareas, mostrarFormularioTareas] = useState(false);
   const [value, onChange] = useState(new Date());
+
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   const fechaEspañol = value.toLocaleDateString('es-ES', options);
+
   var utterance = new SpeechSynthesisUtterance();
   // utterance.text = `Para el ${fechaEspañol} No tienes ninguna tarea proramada`;
   utterance.voice = speechSynthesis.getVoices()[6];
@@ -32,8 +34,6 @@ function App() {
       <Calendar onChange={onChange} value={value} />
       <h1>{fechaEspañol}</h1>
 
-
-
       <button onClick={()=> {speechSynthesis.speak(utterance);}}>
         reproducir
       </button>
@@ -48,8 +48,6 @@ function App() {
       }
 
       <ListadoTareas tareas={tareas} />
-
-
     </div>
   )
 }
