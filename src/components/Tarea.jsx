@@ -5,6 +5,8 @@ export default function Tarea({nombre, prioridad}) {
     <div className='tarea'>
       <h4>{nombre}</h4>
       <p>{prioridad}</p>
+      <button>Eliminar</button>
+      <button>Editar</button>
     </div>
   )
 }

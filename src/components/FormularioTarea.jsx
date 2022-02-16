@@ -26,7 +26,7 @@ const FormularioTarea = ({fechaEspañol, tareas, guardarTareas}) => {
             <select id='categoria' value={prioridad} onChange={e => {setPrioridad(e.target.value)}}>
                 <option value="">--- Seleccione una prioridad ---</option>
                 <option value="importante">Importante</option>
-                <option value="relevante">Relevante</option>
+                <option value="urgente">Urgente</option>
             </select>
             <input type="submit" value="agregar" />
         </form>

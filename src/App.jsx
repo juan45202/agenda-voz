@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import Calendar from 'react-calendar';
 import ListadoTareas from './components/ListadoTareas';
 import FormularioTarea from './components/FormularioTarea';
-import Tarea from './components/Tarea';
 import 'react-calendar/dist/Calendar.css';
 import './App.css'
 
@@ -20,26 +19,35 @@ function App() {
   
   const [tareas, guardarTareas] = useState([]);
 
+  const [filtroTareas, guardarFiltroTareas] = useState([]);
+
+  useEffect(() => {
+    guardarFiltroTareas(tareas.filter(tarea => tarea.fechaEspañol === fechaEspañol));
+  }, [fechaEspañol, tareas])
+  
+  
   const cadenaReproducir = () => {
-    var cadena = `Para el ${fechaEspañol} tiene `
-    for (let i = 0; i < tareas.length; i++){
-      cadena += tareas[i].nombre + ' '
+    var cadena = filtroTareas.length > 0 ? `Para el ${fechaEspañol} tiene ` : `Para el ${fechaEspañol} no tiene nada `
+    
+    for (let i = 0; i < filtroTareas.length; i++){
+      cadena += filtroTareas[i].nombre + ' '
     }
-    console.log(cadena)
     return cadena
   }
+
   utterance.text = cadenaReproducir();
+
   return (
     <div>
       <Calendar onChange={onChange} value={value} />
       <h1>{fechaEspañol}</h1>
 
-      <button onClick={()=> {speechSynthesis.speak(utterance);}}>
-        reproducir
+      <button onClick={()=> {speechSynthesis.speak(utterance)}}>
+        Reproducir
       </button>
 
-      <button onClick={() => {mostrarFormularioTareas(true)}}>
-        Agregar tarea
+      <button onClick={() => {mostrarFormularioTareas(!formularioTareas)}}>
+        {formularioTareas ? 'Cerrar' : 'Agregar Tarea'}
       </button>
 
       { formularioTareas ? 
@@ -47,7 +55,7 @@ function App() {
         : null
       }
 
-      <ListadoTareas tareas={tareas} />
+      <ListadoTareas filtroTareas={filtroTareas} />
     </div>
   )
 }
