@@ -6,26 +6,25 @@ import 'react-calendar/dist/Calendar.css';
 import './App.css'
 
 function App() {
-  
-  const [formularioTareas, mostrarFormularioTareas] = useState(false);
-  const [value, onChange] = useState(new Date());
 
+  const [tareas, guardarTareas] = useState([]);
+  const [filtroTareas, guardarFiltroTareas] = useState([]);
+  const [formularioTareas, mostrarFormularioTareas] = useState(false);
+  const [tareaEditar, guardarTareaEditar] = useState({});
+
+  const [value, onChange] = useState(new Date());
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   const fechaEspañol = value.toLocaleDateString('es-ES', options);
 
   var utterance = new SpeechSynthesisUtterance();
   // utterance.text = `Para el ${fechaEspañol} No tienes ninguna tarea proramada`;
   utterance.voice = speechSynthesis.getVoices()[6];
-  
-  const [tareas, guardarTareas] = useState([]);
-
-  const [filtroTareas, guardarFiltroTareas] = useState([]);
 
   useEffect(() => {
     guardarFiltroTareas(tareas.filter(tarea => tarea.fechaEspañol === fechaEspañol));
   }, [fechaEspañol, tareas])
   
-  
+
   const cadenaReproducir = () => {
     var cadena = filtroTareas.length > 0 ? `Para el ${fechaEspañol} tiene ` : `Para el ${fechaEspañol} no tiene nada `
     
@@ -35,6 +34,14 @@ function App() {
     return cadena
   }
 
+  //Funcion que se pasa por props a tarea para eliminar
+  const eliminarTarea = id => {
+    guardarTareas(tareas.filter(tarea => tarea.nombre !== id));
+  }
+  const editarTarea = tarea => {
+    console.log('editando')
+  }
+  
   utterance.text = cadenaReproducir();
 
   return (
@@ -42,7 +49,7 @@ function App() {
       <Calendar onChange={onChange} value={value} />
       <h1>{fechaEspañol}</h1>
 
-      <button onClick={()=> {speechSynthesis.speak(utterance)}}>
+      <button onClick={()=> speechSynthesis.speak(utterance)}>
         Reproducir
       </button>
 
@@ -51,11 +58,22 @@ function App() {
       </button>
 
       { formularioTareas ? 
-        <FormularioTarea fechaEspañol={fechaEspañol} tareas={tareas} guardarTareas={guardarTareas} /> 
+        <FormularioTarea 
+          fechaEspañol={fechaEspañol}
+          
+          tareas={tareas}
+          tareaEditar={tareaEditar}
+          guardarTareas={guardarTareas}
+          editarTarea={editarTarea}
+        />
         : null
       }
 
-      <ListadoTareas filtroTareas={filtroTareas} />
+      <ListadoTareas 
+        filtroTareas={filtroTareas}
+        eliminarTarea={eliminarTarea}
+        guardarTareaEditar={guardarTareaEditar}
+      />
     </div>
   )
 }

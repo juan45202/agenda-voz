@@ -1,12 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-const FormularioTarea = ({fechaEspañol, tareas, guardarTareas}) => {
+const FormularioTarea = (
+    {   fechaEspañol, 
+        tareas, 
+        tareaEditar, 
+        guardarTareas,
+        editarTarea
+    
+    }) => {
     
     const [nombre, setNombre] = useState('');
     const [prioridad, setPrioridad] = useState('');
+    
+    useEffect(() => {
+        if (Object.keys(tareaEditar).length) {
+            setNombre(tareaEditar.nombre)
+            setPrioridad(tareaEditar.prioridad)
+        }
+    }, [tareaEditar])
 
+    
     const handleSubmit = e => {
         e.preventDefault();
+        
+        //Hacer codigo para editar y agregar la tarea
+
         guardarTareas(
             [...tareas, {nombre, prioridad, fechaEspañol}]
         );
@@ -24,11 +42,11 @@ const FormularioTarea = ({fechaEspañol, tareas, guardarTareas}) => {
             </label>
             <label>Prioridad</label>
             <select id='categoria' value={prioridad} onChange={e => {setPrioridad(e.target.value)}}>
-                <option value="">--- Seleccione una prioridad ---</option>
+                <option value="">Seleccione una prioridad</option>
                 <option value="importante">Importante</option>
                 <option value="urgente">Urgente</option>
             </select>
-            <input type="submit" value="agregar" />
+            <input type="submit" value={ Object.keys(tareaEditar).length ? 'Editar Tarea' : 'Agreagar Tarea'} />
         </form>
     </div>
   )
