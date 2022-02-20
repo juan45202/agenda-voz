@@ -12,13 +12,14 @@ function App() {
   const [formularioTareas, mostrarFormularioTareas] = useState(false);
   const [tareaEditar, guardarTareaEditar] = useState({});
 
+  const [pausa, setPausa] = useState(false);
+
   const [value, onChange] = useState(new Date());
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   const fechaEspañol = value.toLocaleDateString('es-ES', options);
 
   var utterance = new SpeechSynthesisUtterance();
-  // utterance.text = `Para el ${fechaEspañol} No tienes ninguna tarea proramada`;
-  utterance.voice = speechSynthesis.getVoices()[6];
+  utterance.voice = speechSynthesis.getVoices()[5];
 
   useEffect(() => {
     guardarFiltroTareas(tareas.filter(tarea => tarea.fechaEspañol === fechaEspañol));
@@ -36,22 +37,44 @@ function App() {
 
   //Funcion que se pasa por props a tarea para eliminar
   const eliminarTarea = id => {
-    guardarTareas(tareas.filter(tarea => tarea.nombre !== id));
+    guardarTareas(tareas.filter(tarea => tarea.id !== id));
   }
   const editarTarea = tarea => {
     console.log('editando')
   }
   
-  utterance.text = cadenaReproducir();
+  const reproducir = () => {
+    speechSynthesis.cancel();
+    setPausa(false);
+    utterance.text = cadenaReproducir();
+    speechSynthesis.speak(utterance);
+  }
+  
+
+  const stopResume = () => {
+    if (pausa === false) {
+      setPausa(true)
+      speechSynthesis.pause();
+    }else {
+      setPausa(false)
+      speechSynthesis.resume();
+    }
+    
+  }
 
   return (
     <div>
       <Calendar onChange={onChange} value={value} />
       <h1>{fechaEspañol}</h1>
 
-      <button onClick={()=> speechSynthesis.speak(utterance)}>
-        Reproducir
-      </button>
+      <i className="bi bi-arrow-counterclockwise" >
+        reiniciar
+      </i>
+      <button className={pausa === false ? 'bi bi-play' : 'bi bi-pause' }></button>
+      <i className="bi bi-play" onClick={reproducir}>Reproducir</i>
+
+      <i className="bi bi-pause" onClick={stopResume}>Pausar</i>
+      
 
       <button onClick={() => {mostrarFormularioTareas(!formularioTareas)}}>
         {formularioTareas ? 'Cerrar' : 'Agregar Tarea'}
@@ -60,7 +83,6 @@ function App() {
       { formularioTareas ? 
         <FormularioTarea 
           fechaEspañol={fechaEspañol}
-          
           tareas={tareas}
           tareaEditar={tareaEditar}
           guardarTareas={guardarTareas}

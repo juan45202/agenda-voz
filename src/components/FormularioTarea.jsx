@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import {v4 as uuidv4} from 'uuid'
 
 const FormularioTarea = (
     {   fechaEspañol, 
@@ -24,9 +25,9 @@ const FormularioTarea = (
         e.preventDefault();
         
         //Hacer codigo para editar y agregar la tarea
-
+        
         guardarTareas(
-            [...tareas, {nombre, prioridad, fechaEspañol}]
+            [...tareas, {id: uuidv4() ,nombre, prioridad, fechaEspañol}]
         );
         setNombre('')
         setPrioridad('')
