@@ -1,7 +1,7 @@
 import React from 'react'
 import Tarea from './Tarea'
 
-const ListadoTareas = ({filtroTareas, guardarTareaEditar, eliminarTarea}) => {
+const ListadoTareas = ({filtroTareas, setTareaEditar, eliminarTarea}) => {
   return (
     <>
         <h2>Tareas </h2>
@@ -11,7 +11,8 @@ const ListadoTareas = ({filtroTareas, guardarTareaEditar, eliminarTarea}) => {
                 id={tarea.id}
                 nombre={tarea.nombre}
                 prioridad={tarea.prioridad}
-                guardarTareaEditar={guardarTareaEditar}
+                fecha={tarea.fecha}
+                setTareaEditar={setTareaEditar}
                 eliminarTarea={eliminarTarea}
             />
         )))  : <p>No hay tareas</p>}

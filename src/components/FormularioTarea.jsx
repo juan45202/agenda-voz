@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import {v4 as uuidv4} from 'uuid'
+
 
 const FormularioTarea = (
-    {   fechaEspañol, 
-        tareas, 
-        tareaEditar, 
-        guardarTareas,
-        editarTarea
-    
+    {   
+        fechaEspañol,
+        tareaEditar,
+        agregarTarea,
+        setError
     }) => {
     
     const [nombre, setNombre] = useState('');
@@ -20,15 +19,28 @@ const FormularioTarea = (
         }
     }, [tareaEditar])
 
-    
+    useEffect(() => {
+        setNombre('')
+        setPrioridad('')
+      }, [fechaEspañol])
+
     const handleSubmit = e => {
+
         e.preventDefault();
-        
-        //Hacer codigo para editar y agregar la tarea
-        
-        guardarTareas(
-            [...tareas, {id: uuidv4() ,nombre, prioridad, fechaEspañol}]
-        );
+        if([nombre, prioridad].includes('')) {
+            setError(true)
+            setTimeout(() => {
+                setError(false)
+            }, 2000);
+            return
+        }
+        if (tareaEditar.id) {
+            tareaEditar.nombre = nombre
+            tareaEditar.prioridad = prioridad
+            agregarTarea(tareaEditar)    
+        }else {
+            agregarTarea({nombre, prioridad})
+        }
         setNombre('')
         setPrioridad('')
     }
@@ -39,7 +51,12 @@ const FormularioTarea = (
         <form onSubmit={handleSubmit}>
             <label>
                 Tarea: 
-                <input type="text" name='nombre' value={nombre} onChange={e => {setNombre(e.target.value)}} />
+                <input 
+                    type="text" 
+                    name='nombre' 
+                    placeholder='Ingrese el nombre de su tarea' 
+                    value={nombre} onChange={e => {setNombre(e.target.value)}} 
+                />
             </label>
             <label>Prioridad</label>
             <select id='categoria' value={prioridad} onChange={e => {setPrioridad(e.target.value)}}>
