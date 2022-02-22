@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Calendar from 'react-calendar';
 import ListadoTareas from './components/ListadoTareas';
 import FormularioTarea from './components/FormularioTarea';
+import Header from './components/Header';
 
 import 'react-calendar/dist/Calendar.css';
 import {v4 as uuidv4} from 'uuid'
@@ -85,6 +86,7 @@ function App() {
 
   return (
     <div>
+      <Header />
       <Calendar onChange={onChange} value={value} tileClassName={tileClass}/>
       <h1>{fechaEspañol}</h1>
 

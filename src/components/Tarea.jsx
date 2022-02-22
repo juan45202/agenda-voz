@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function Tarea({id, nombre, fecha, prioridad, eliminarTarea, setTareaEditar}) {
-
   return (
     <div className='tarea'>
       <h4>{nombre}</h4>
