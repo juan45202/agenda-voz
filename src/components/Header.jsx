@@ -6,11 +6,7 @@ const Header = () => {
         <div>
         <h1 className='titulo'>Agenda de Voz</h1>
         </div>
-        
     </div>
-
-    
   )
 }
-
 export default Header

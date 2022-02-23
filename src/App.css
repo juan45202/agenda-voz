@@ -21,13 +21,75 @@ body {
 
 .tarea {
   border: 1px solid coral;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.32);
 }
 
 .blue{
   background-color: #61dafb;
 }
 
+
+.columna1{
+  width: 49%;
+  float: left;
+  border: 1px solid white;
+  display: flex;
+}
+.columna2{
+  width: 50%;
+  float: right;
+  border: 1px solid white;
+  
+}
+
+.bloque {
+  display: block;
+  width: 100px;
+  border: 1px solid white;
+}
+
+.icono {
+  color: white;
+  margin: 5px;
+  font-size: 23px;
+}
+.icono:hover{
+  background-color: aquamarine;
+}
+
+.contenedor-formulario {
+  background-color: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.32);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 15px;
+}
+.contenedor-formulario input[type="submit"] {
+  margin-top: 10px;
+  background-color: gainsboro;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  
+}
+.campo {
+  display: grid;
+}
+.campo label {
+  color: white;
+  font-size: 20px;
+  padding-top: 10px;
+}
+.campo input {
+  font-size: 20px;
+  font-family: 'Varela Round', sans-serif;
+  border: none;
+  margin: 0 50% 0 1%;
+  border-radius: 5px;
+}
+
 button {
   font-size: calc(10px + 2vmin);
+  background-color: transparent;
+  border: none;
 }

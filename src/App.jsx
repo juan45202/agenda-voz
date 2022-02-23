@@ -87,37 +87,55 @@ function App() {
   return (
     <div>
       <Header />
-      <Calendar onChange={onChange} value={value} tileClassName={tileClass}/>
-      <h1>{fechaEspañol}</h1>
 
-      <i className="bi bi-arrow-counterclockwise" >
-        Reiniciar
-      </i>
-      <button className={pausa === false ? 'bi bi-play' : 'bi bi-pause' }></button>
-      <i className="bi bi-play" onClick={reproducir}>Reproducir</i>
-
-      <i className="bi bi-pause" onClick={stopResume}>Pausar</i>
       
-      <button onClick={() => {mostrarFormularioTareas(!formularioTareas)}}>
-        {formularioTareas ? 'Cerrar' : 'Agregar Tarea'}
-      </button>
+      
 
-      {error ? <p>Todos los campos son obligatorios</p> : null}
-      { formularioTareas ? 
-        <FormularioTarea 
-          fechaEspañol={fechaEspañol}
-          tareaEditar={tareaEditar}
-          agregarTarea={agregarTarea}
-          setError={setError}
+      <div className='columna1'>
+        
+        <Calendar onChange={onChange} value={value} tileClassName={tileClass}/>
+
+        <div className='bloque'>
+          <i className="bi bi-arrow-counterclockwise icono" >
+            Reiniciar
+          </i>
+          <button className={pausa === false ? 'bi bi-play icono' : 'bi bi-pause icono' }></button>
+          <i className="bi bi-play icono" onClick={reproducir}>Reproducir</i>
+
+          <i className="bi bi-pause icono" onClick={stopResume}>Pausar</i>
+
+          <button onClick={() => {mostrarFormularioTareas(!formularioTareas)}}>
+            {formularioTareas ? 'Cerrar' : <i class="bi bi-plus icono"></i>}
+          </button>
+      </div> 
+      
+      </div>
+      
+      <div className='columna2'>
+
+        <h1>{fechaEspañol}</h1>
+
+        {error ? <p>Todos los campos son obligatorios</p> : null}
+        { formularioTareas ? 
+          <FormularioTarea 
+            fechaEspañol={fechaEspañol}
+            tareaEditar={tareaEditar}
+            agregarTarea={agregarTarea}
+            setError={setError}
+          />
+          : null
+        }
+
+        <ListadoTareas 
+          filtroTareas={filtroTareas}
+          eliminarTarea={eliminarTarea}
+          setTareaEditar={setTareaEditar}
         />
-        : null
-      }
 
-      <ListadoTareas 
-        filtroTareas={filtroTareas}
-        eliminarTarea={eliminarTarea}
-        setTareaEditar={setTareaEditar}
-      />
+      </div>
+
+
+      
       
     </div>
   )

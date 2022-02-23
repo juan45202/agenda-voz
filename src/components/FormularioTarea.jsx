@@ -47,22 +47,24 @@ const FormularioTarea = (
     return (
     
     <div>
-        <form onSubmit={handleSubmit}>
-            <label>
-                Tarea: 
+        <form onSubmit={handleSubmit} className='contenedor-formulario'>
+            <div className='campo'>
+                <label>Tarea:</label>
                 <input 
                     type="text" 
                     name='nombre' 
                     placeholder='Ingrese el nombre de su tarea' 
                     value={nombre} onChange={e => {setNombre(e.target.value)}} 
                 />
-            </label>
-            <label>Prioridad</label>
-            <select id='categoria' value={prioridad} onChange={e => {setPrioridad(e.target.value)}}>
-                <option value="">Seleccione una prioridad</option>
-                <option value="importante">Importante</option>
-                <option value="urgente">Urgente</option>
-            </select>
+            </div>
+            <div className='campo'>
+                <label>Prioridad:</label>
+                <select id='categoria' value={prioridad} onChange={e => {setPrioridad(e.target.value)}}>
+                    <option value="">Seleccione una prioridad</option>
+                    <option value="importante">Importante</option>
+                    <option value="urgente">Urgente</option>
+                </select>
+            </div>
             <input type="submit" value={ Object.keys(tareaEditar).length ? 'Editar Tarea' : 'Agreagar Tarea'} />
         </form>
     </div>
