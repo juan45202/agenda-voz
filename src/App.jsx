@@ -104,8 +104,9 @@ function App() {
 
           <i className="bi bi-pause icono" onClick={stopResume}>Pausar</i>
 
+          
           <button onClick={() => {mostrarFormularioTareas(!formularioTareas)}}>
-            {formularioTareas ? 'Cerrar' : <i class="bi bi-plus icono"></i>}
+            {formularioTareas ? <i className="bi bi-x-lg icono"></i> : <i className="bi bi-plus-lg icono"></i>}
           </button>
       </div> 
       
@@ -115,11 +116,12 @@ function App() {
 
         <h1>{fechaEspañol}</h1>
 
-        {error ? <p>Todos los campos son obligatorios</p> : null}
+        {error ? <p className='error'>Todos los campos son obligatorios</p> : null}
         { formularioTareas ? 
           <FormularioTarea 
             fechaEspañol={fechaEspañol}
             tareaEditar={tareaEditar}
+            mostrarFormularioTareas={mostrarFormularioTareas}
             agregarTarea={agregarTarea}
             setError={setError}
           />

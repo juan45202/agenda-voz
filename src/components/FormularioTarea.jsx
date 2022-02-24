@@ -5,7 +5,8 @@ const FormularioTarea = (
         fechaEspañol,
         tareaEditar,
         agregarTarea,
-        setError
+        setError,
+        mostrarFormularioTareas
     }) => {
     
     const [nombre, setNombre] = useState('');
@@ -46,8 +47,9 @@ const FormularioTarea = (
 
     return (
     
-    <div>
-        <form onSubmit={handleSubmit} className='contenedor-formulario'>
+    <div className='contenedor-formulario'>
+        <i className="bi bi-x-lg icono" onClick={() => {mostrarFormularioTareas(false)}}></i>
+        <form onSubmit={handleSubmit}>
             <div className='campo'>
                 <label>Tarea:</label>
                 <input 

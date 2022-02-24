@@ -3,6 +3,13 @@
 body {
   font-family: 'Varela Round', sans-serif;
   background-color: #17A589;
+  color: white;
+}
+h1, h2 {
+  text-align: center;
+}
+h1::first-letter {
+  text-transform: uppercase;
 }
 
 .header {
@@ -28,7 +35,6 @@ body {
   background-color: #61dafb;
 }
 
-
 .columna1{
   width: 49%;
   float: left;
@@ -39,8 +45,8 @@ body {
   width: 50%;
   float: right;
   border: 1px solid white;
-  
 }
+
 
 .bloque {
   display: block;
@@ -87,6 +93,22 @@ body {
   margin: 0 50% 0 1%;
   border-radius: 5px;
 }
+
+h2 {
+  font-size: 25px;
+}
+
+.error {
+  width: max-content;
+  margin: auto;
+  padding: 5px;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: red;
+}
+
+
 
 button {
   font-size: calc(10px + 2vmin);
