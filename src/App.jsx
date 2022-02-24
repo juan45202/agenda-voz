@@ -88,32 +88,27 @@ function App() {
     <div>
       <Header />
 
-      
-      
-
       <div className='columna1'>
         
         <Calendar onChange={onChange} value={value} tileClassName={tileClass}/>
 
-        <div className='bloque'>
-          <i className="bi bi-arrow-counterclockwise icono" >
-            Reiniciar
-          </i>
-          <button className={pausa === false ? 'bi bi-play icono' : 'bi bi-pause icono' }></button>
-          <i className="bi bi-play icono" onClick={reproducir}>Reproducir</i>
+        <div className='bloque-botonera'>
 
-          <i className="bi bi-pause icono" onClick={stopResume}>Pausar</i>
-
+          <i className="bi bi-arrow-counterclockwise icono" />
           
-          <button onClick={() => {mostrarFormularioTareas(!formularioTareas)}}>
-            {formularioTareas ? <i className="bi bi-x-lg icono"></i> : <i className="bi bi-plus-lg icono"></i>}
-          </button>
-      </div> 
-      
+          <i className="bi bi-play icono" onClick={reproducir} />
+
+          <i className="bi bi-pause icono" onClick={stopResume} />
+
+          <i 
+            className={formularioTareas ? 'bi bi-x-lg icono' : 'bi bi-plus-lg icono'} 
+            onClick={() => {mostrarFormularioTareas(!formularioTareas)}}
+          />
+          
+        </div> 
       </div>
       
       <div className='columna2'>
-
         <h1>{fechaEspañol}</h1>
 
         {error ? <p className='error'>Todos los campos son obligatorios</p> : null}
@@ -135,10 +130,6 @@ function App() {
         />
 
       </div>
-
-
-      
-      
     </div>
   )
 }
