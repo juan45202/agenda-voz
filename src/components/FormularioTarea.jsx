@@ -41,6 +41,7 @@ const FormularioTarea = (
         }else {
             agregarTarea({nombre, prioridad})
         }
+        mostrarFormularioTareas(false)
         setNombre('')
         setPrioridad('')
     }
@@ -48,7 +49,7 @@ const FormularioTarea = (
     return (
     
     <div className='contenedor-formulario'>
-        <i className="bi bi-x-lg icono" onClick={() => {mostrarFormularioTareas(false)}}></i>
+        <i className="bi bi-x-lg icono derecha" onClick={() => {mostrarFormularioTareas(false)}}></i>
         <form onSubmit={handleSubmit}>
             <div className='campo'>
                 <label>Tarea:</label>
@@ -61,7 +62,7 @@ const FormularioTarea = (
             </div>
             <div className='campo'>
                 <label>Prioridad:</label>
-                <select id='categoria' value={prioridad} onChange={e => {setPrioridad(e.target.value)}}>
+                <select className='lista-prioridades' id='categoria' value={prioridad} onChange={e => {setPrioridad(e.target.value)}}>
                     <option value="">Seleccione una prioridad</option>
                     <option value="importante">Importante</option>
                     <option value="urgente">Urgente</option>
