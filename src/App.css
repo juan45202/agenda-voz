@@ -16,7 +16,8 @@ h1::first-letter {
   width: 100%;
   height: 100px;
   margin-bottom: 50px;
-  background-color: rgba(255, 255, 255, 0.32);
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -148,7 +149,12 @@ button {
   border: 1px solid white;
   border-radius: 15px;
   color: black;
+  font-family: 'Varela Round', sans-serif;
   
+  
+}
+.react-calendar__navigation__label__labelText {
+  font-family: 'Varela Round', sans-serif;
 }
 
 .react-calendar button {
@@ -160,17 +166,23 @@ button {
 .react-calendar button:enabled:hover {
   cursor: pointer;
 }
+.react-calendar__navigation {
+  font-family: 'Varela Round', sans-serif;
+}
 
 .react-calendar__navigation button:disabled {
   background-color: #69D0A3;
+  
 }
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
   background-color: #69D0A3;
+
 }
 
 .react-calendar__month-view__days__day--weekend {
   color: #009D71;
+  
 }
 .react-calendar__month-view__days__day--neighboringMonth {
   color: #757575;
